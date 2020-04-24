@@ -1,10 +1,6 @@
 # SiteBuild
 # time docker build -t stage/sitebuild . && docker run -it --rm --name sitebuild stage/sitebuild
 
-
-# https://hub.docker.com/r/jekyll/jekyll/
-#FROM jekyll/jekyll:minimal
-
 # Need to use Ruby 2.6 with Jekyll 4.0 to avoid lots of warning. With Jekyll 4.1, Ruby 2.7 will be OK.
 FROM ruby:2.6-alpine
 
