@@ -13,9 +13,9 @@ jekyll build --trace --destination $DEST_DIR
 
 mkdir -p _assets/js/ _vendor/jquery/dist/ _vendor/what-input/dist/
 
-wget -nv -O "_assets/js/analytics.js"                         "https://www.google-analytics.com/analytics.js"                                        && echo ""
-wget -nv -O "_vendor/jquery/dist/jquery-3.5.0.min.js"         "https://code.jquery.com/jquery-3.5.0.min.js"                                          && echo ""
-wget -nv -O "_vendor/what-input/dist/what-input-5.2.6.min.js" "https://raw.githubusercontent.com/ten1seven/what-input/v5.2.6/dist/what-input.min.js" && echo ""
+wget -q -O "_assets/js/analytics.js"                         "https://www.google-analytics.com/analytics.js"                                        && echo ""
+wget -q -O "_vendor/jquery/dist/jquery-3.5.0.min.js"         "https://code.jquery.com/jquery-3.5.0.min.js"                                          && echo ""
+wget -q -O "_vendor/what-input/dist/what-input-5.2.6.min.js" "https://raw.githubusercontent.com/ten1seven/what-input/v5.2.6/dist/what-input.min.js" && echo ""
 
 # Concat Javascript files
 mkdir -p $DEST_DIR/js
@@ -40,3 +40,5 @@ done
 # Serve files (dev)
 # ruby -rwebrick -e'WEBrick::HTTPServer.new(:Port => 8080, :DocumentRoot => Dir.pwd).start'
 # jekyll serve --trace --host 0.0.0.0 --port 8080 --skip-initial-build
+
+echo -e "\n*** DONE ***\n"
