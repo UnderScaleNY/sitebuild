@@ -22,6 +22,3 @@ WORKDIR /home/app/
 
 # https://phoenixnap.com/kb/docker-cmd-vs-entrypoint
 CMD  docker_build.sh
-
-
-gem install jekyll:$JEKYLL_VER jekyll-sitemap:1.4.0 jekyll-paginate:1.1.0 jekyll-seo-tag:2.6.1 jekyll-minifier:0.1.10 -no-rdoc -no-ri
