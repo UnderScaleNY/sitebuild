@@ -1,6 +1,6 @@
 #/bin/ash
 
-DEST_DIR=../site
+DEST_DIR=_site
 
 # Exit when any command fails
 set -e
@@ -40,4 +40,5 @@ do
 done
 
 
-echo -e "\n*** DONE ***\n"
+# Serve files (dev)
+jekyll serve --trace --drafts --unpublished --future --port 8080 --host 0.0.0.0 -d _site
