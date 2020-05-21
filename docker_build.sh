@@ -5,7 +5,6 @@ DEST_DIR=../site
 # Exit when any command fails
 set -e
 
-# git clone https://github.com/UnderScaleNY/site.git . --depth=1
 wget -qO- "https://github.com/UnderScaleNY/site/archive/master.tar.gz" | tar xz
 cd site-master
 

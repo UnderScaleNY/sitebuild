@@ -8,7 +8,7 @@ FROM ruby:2.6-alpine
 ARG  JEKYLL_VER=4.0
 
 RUN  apk add --no-cache build-base gcc cmake nodejs nodejs-npm git \
-&&   gem install jekyll:$JEKYLL_VER jekyll-sitemap:1.4.0 jekyll-paginate:1.1.0 jekyll-seo-tag:2.6.1 jekyll-minifier:0.1.10 contentful_bootstrap jekyll-contentful-data-import \
+&&   gem install jekyll:$JEKYLL_VER jekyll-sitemap:1.4.0 jekyll-paginate:1.1.0 jekyll-seo-tag:2.6.1 jekyll-minifier:0.1.10 \
 &&   apk del --purge build-base gcc cmake \
 &&   gem cleanup \
 &&   rm -rf /usr/lib/ruby/gems/*/cache/* \
