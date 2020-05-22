@@ -22,4 +22,4 @@ ENV  JEKYLL_ENV=production
 WORKDIR /home/app/
 
 # https://phoenixnap.com/kb/docker-cmd-vs-entrypoint
-CMD  build.sh
+CMD  ash /bin/build.sh

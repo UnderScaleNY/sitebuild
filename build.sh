@@ -70,6 +70,7 @@ if [ ! -d "$SRC_DIR" ]; then
   echo "The directory ./site does not exist --> Downloading code from branch $BRANCH"
   wget -qO- "https://github.com/UnderScaleNY/site/archive/$BRANCH.tar.gz" | tar xz
   mv "site-$BRANCH" "$SRC_DIR"
+  echo ""
 fi
 
 cd "$SRC_DIR"
@@ -100,19 +101,21 @@ cat "_vendor/jquery/dist/jquery-3.5.0.min.js" \
 cp validation/* "$DEST_DIR"
 
 # Add revision number to CSS & JS files
-# cd "$DEST_DIR"
-echo "\n*** Add revision number to CSS & JS files ***"
-for file in "$DEST_DIR"/js/*.js "$DEST_DIR"/css/*.css
+old_dir=$(pwd)
+cd "$DEST_DIR"
+echo -e "\n*** Add revision number to CSS & JS files ***"
+for file in js/*.js css/*.css
 do
   newfile=${file%.*}_`md5sum $file | cut -d" " -f1`.${file##*.}
   echo " + $file  -->  $newfile"
   mv "$file" "$newfile"
-  find "$DEST_DIR" -name "*.html" -type f -exec sed -i "s#/$file#/$newfile#g" {} \;
+  find ./ -name "*.html" -type f -exec sed -i "s#/$file#/$newfile#g" {} \;
 done
+cd $old_dir
 
 
 # Serve files
 if [ $SERVE ]; then
   echo -e "\n\n*** Serve static files with Jekyll ***"
-  jekyll serve --trace --drafts --unpublished --future --port 8080 --host 0.0.0.0 --destination "$DEST_DIR"
+  jekyll serve --trace --skip-initial-build --drafts --unpublished --future --port 8080 --host 0.0.0.0 --destination "$DEST_DIR"
 fi
