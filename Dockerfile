@@ -14,14 +14,12 @@ RUN  apk add --no-cache build-base gcc cmake nodejs nodejs-npm git \
 &&   rm -rf /usr/lib/ruby/gems/*/cache/* \
 &&   rm -rf /var/cache/apk/* /tmp/*
 
-COPY docker_build.sh /bin/docker_build.sh
-COPY docker_serve.sh /bin/docker_serve.sh
-RUN  chmod 777 /bin/docker_serve.sh \
-&&   chmod 777 /bin/docker_build.sh
+COPY build.sh  /bin/build.sh
+RUN  chmod 777 /bin/build.sh
 
 ENV  JEKYLL_ENV=production
 
 WORKDIR /home/app/
 
 # https://phoenixnap.com/kb/docker-cmd-vs-entrypoint
-CMD  docker_build.sh
+CMD  build.sh
