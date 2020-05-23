@@ -117,5 +117,5 @@ cd $old_dir
 # Serve files
 if [ $SERVE ]; then
   echo -e "\n\n*** Serve static files with Jekyll ***"
-  jekyll serve --trace --skip-initial-build --drafts --unpublished --future --port 8080 --host 0.0.0.0 --destination "$DEST_DIR"
+  exec jekyll serve --trace --skip-initial-build --drafts --unpublished --future --port 8080 --host 0.0.0.0 --destination "$DEST_DIR"
 fi
