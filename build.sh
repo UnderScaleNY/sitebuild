@@ -8,6 +8,7 @@ DEFAULT_SRC_DIR=./site
 DEFAULT_DEST_DIR=_site
 DEFAULT_BRANCH=master
 DEFAULT_SERVE=
+DEFAULT_COMPRESS=
 
 # Directory where the code is
 SRC_DIR=$DEFAULT_SRC_DIR
@@ -18,15 +19,19 @@ DEST_DIR=$DEFAULT_DEST_DIR
 # Git branch to use, if needeed
 BRANCH=$DEFAULT_BRANCH
 
-# Is it to only build the site or also to serve the files through Jekyll (for tests & preview) 
+# Is it to only build the site or also to serve the files through Jekyll (for tests & preview)
 SERVE=$DEFAULT_SERVE
+
+# Compress built files in a tar.bz2
+COMPRESS=$DEFAULT_COMPRESS
 
 usage()
 {
   echo "usage: [-h] [-s <dir>] [-t <dir>] [-b <branch>] [-r]"
   echo "   -s | --source-dir <dir>  Directory where the code is"
-  echo "   -t | --target-dir <dir>  Directory where to put built files, relatively to source directory"
+  echo "   -t | --target-dir <dir>  Directory where to put built files, relatively to code directory"
   echo "   -b | --branch <branch>   Git branch to use, if needeed"
+  echo "   -c | --compress <dir>    Compress built files in site.tar.bz2 to directory"
   echo "   -r | --serve             Serve the files through Jekyll (for tests & preview)"
   echo "   -h | --help              Print usage"
 }
@@ -47,6 +52,11 @@ while [ "$1" != "" ]; do
     -b | --branch )
       shift
       BRANCH=$1
+      ;;
+      
+    -c | --compress )
+      shift
+      COMPRESS=$1
       ;;
       
     -r | --serve )
@@ -120,8 +130,14 @@ do
   mv "$file" "$newfile"
   find ./ -name "*.html" -type f -exec sed -i "s#/$file#/$newfile#g" {} \;
 done
-cd $old_dir
 
+# Compress files
+if [ $COMPRESS ]; then
+  echo -e "\n\n*** Compress static files ***"
+  tar -cjf "$COMPRESS"/site.tar.bz2 *
+fi
+
+cd $old_dir
 
 # Serve files
 if [ $SERVE ]; then
