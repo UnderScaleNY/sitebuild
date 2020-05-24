@@ -58,6 +58,15 @@ while [ "$1" != "" ]; do
       exit
       ;;
       
+    --test )
+      echo -e "\n*** Running tests ***"
+      echo -n "- Jekyll version: " && jekyll --version
+      echo -e "\n- Current directory: $(pwd)"
+      echo -e "\n- Environment variables:" && env
+      echo -e "\n- File list: $(ls -alh)"
+      exit
+      ;;
+      
     * )
       usage
       exit 1
