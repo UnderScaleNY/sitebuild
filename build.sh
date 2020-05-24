@@ -24,11 +24,11 @@ SERVE=$DEFAULT_SERVE
 usage()
 {
   echo "usage: [-h] [-s <dir>] [-t <dir>] [-b <branch>] [-r]"
-  echo "   -s | --source-dir <directory>   Directory where the code is"
-  echo "   -t | --target-dir               Directory where the building site will be put, relatively to source directory"
-  echo "   -b | --branch                   Git branch to use, if needeed"
-  echo "   -r | --serve                    Serve the files through Jekyll (for tests & preview) "
-  echo "   -h | --help                     Print usage"
+  echo "   -s | --source-dir <dir>  Directory where the code is"
+  echo "   -t | --target-dir <dir>  Directory where to put built files, relatively to source directory"
+  echo "   -b | --branch <branch>   Git branch to use, if needeed"
+  echo "   -r | --serve             Serve the files through Jekyll (for tests & preview)"
+  echo "   -h | --help              Print usage"
 }
 
 
