@@ -133,7 +133,7 @@ done
 
 # Compress files
 if [ $COMPRESS ]; then
-  echo -e "\n\n*** Compress static files ***"
+  echo -e "\n*** Compress static files ***"
   tar -cjf "$COMPRESS"/site.tar.bz2 *
 fi
 
