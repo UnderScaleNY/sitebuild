@@ -104,6 +104,7 @@ if [ ! -d "$SRC_DIR" ]; then
 fi
 
 cd "$SRC_DIR"
+mv /home/app/Gemfile .
 
 echo "*** Install NodeJS dependencies ***"
 npm --loglevel=error install
