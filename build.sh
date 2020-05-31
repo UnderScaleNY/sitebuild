@@ -9,7 +9,7 @@ DEFAULT_DEST_DIR=_site
 DEFAULT_BRANCH=master
 DEFAULT_SERVE=
 DEFAULT_COMPRESS=
-DEFAULT_ALGOLIA_API_KEY=
+# DEFAULT_ALGOLIA_API_KEY=
 
 # Directory where the code is
 SRC_DIR=$DEFAULT_SRC_DIR
@@ -27,7 +27,7 @@ SERVE=$DEFAULT_SERVE
 COMPRESS=$DEFAULT_COMPRESS
 
 # Admin API key for Algolia search engine
-ALGOLIA_API_KEY=$DEFAULT_ALGOLIA_API_KEY
+# ALGOLIA_API_KEY=$DEFAULT_ALGOLIA_API_KEY
 
 
 usage()
@@ -36,7 +36,7 @@ usage()
   echo "   -s | --source-dir <dir>  Directory where the code is"
   echo "   -t | --target-dir <dir>  Directory where to put built files, relatively to code directory"
   echo "   -b | --branch <branch>   Git branch to use, if needeed"
-  echo "   -k | --algolia-key <key> Admin API key for Algolia search engine"
+  # echo "   -k | --algolia-key <key> Admin API key for Algolia search engine"
   echo "   -c | --compress <dir>    Compress built files in site.tar.bz2 to directory"
   echo "   -r | --serve             Serve the files through Jekyll (for tests & preview)"
   echo "   -h | --help              Print usage"
@@ -60,10 +60,10 @@ while [ "$1" != "" ]; do
       BRANCH=$1
       ;;
       
-    -k | --algolia-key )
-      shift
-      ALGOLIA_API_KEY=$1
-      ;;
+    # -k | --algolia-key )
+      # shift
+      # ALGOLIA_API_KEY=$1
+      # ;;
       
     -c | --compress )
       shift
@@ -153,10 +153,10 @@ cd $old_dir
 
 
 # Send data to Algolia
-if [ $ALGOLIA_API_KEY ]; then
-  echo -e "\n*** Send data to Algolia ***"
-  ALGOLIA_API_KEY=$ALGOLIA_API_KEY jekyll algolia
-fi
+# if [ $ALGOLIA_API_KEY ]; then
+  # echo -e "\n*** Send data to Algolia ***"
+  # ALGOLIA_API_KEY=$ALGOLIA_API_KEY jekyll algolia
+# fi
 
 
 # Serve files
