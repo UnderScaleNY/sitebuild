@@ -1,7 +1,14 @@
-#!/bin/ash
+#!/bin/sh
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
+set -euo pipefail
 
-# Exit when any command fails
-set -e
+# https://stackoverflow.com/questions/3427872/whats-the-difference-between-and-in-bash
+if [[ $# != 0 ]]; then
+  if [[ $1="bash" || $1="sh" || $1="ash" ]]; then
+    exec /bin/sh
+  fi
+fi
+
 
 # Default configuration
 DEFAULT_SRC_DIR=./site
@@ -23,7 +30,7 @@ BRANCH=$DEFAULT_BRANCH
 # Is it to only build the site or also to serve the files through Jekyll (for tests & preview)
 SERVE=$DEFAULT_SERVE
 
-# Compress built files in a tar.bz2
+# Compress built files in a tar.bz2 file
 COMPRESS=$DEFAULT_COMPRESS
 
 # Admin API key for Algolia search engine
@@ -43,7 +50,7 @@ usage()
 }
 
 
-while [ "$1" != "" ]; do
+while [[ $# != 0 ]]; do
   case $1 in
     -s | --source-dir )
       shift
@@ -89,6 +96,7 @@ while [ "$1" != "" ]; do
       ;;
       
     * )
+      echo -e " ! Unrecognized parameters ! \n"
       usage
       exit 1
   esac
@@ -120,13 +128,23 @@ wget -q -O "_assets/js/analytics.js"                         "https://www.google
 wget -q -O "_vendor/jquery/dist/jquery-3.5.0.min.js"         "https://code.jquery.com/jquery-3.5.0.min.js"                                          && echo ""
 wget -q -O "_vendor/what-input/dist/what-input-5.2.6.min.js" "https://raw.githubusercontent.com/ten1seven/what-input/v5.2.6/dist/what-input.min.js" && echo ""
 
+
 # Concat Javascript files
-echo -e "*** Concatenate Javascript files ***"
+echo -e "*** Concatenate & Minify Javascript files ***"
 mkdir -p "$DEST_DIR"/js
-cat "_vendor/jquery/dist/jquery-3.5.0.min.js" \
-    "_vendor/what-input/dist/what-input-5.2.6.min.js" \
-    "node_modules/foundation-sites/dist/js/foundation.min.js" \
-    _assets/js/*.js > "$DEST_DIR"/js/all.js
+npm install uglify-js -g
+uglifyjs "_vendor/jquery/dist/jquery-3.5.0.min.js" \
+         "_vendor/what-input/dist/what-input-5.2.6.min.js" \
+         "node_modules/foundation-sites/dist/js/foundation.min.js" \
+         _assets/js/*.js > "${DEST_DIR}/js/all.js"
+
+# cat "_vendor/jquery/dist/jquery-3.5.0.min.js" \
+    # "_vendor/what-input/dist/what-input-5.2.6.min.js" \
+    # "node_modules/foundation-sites/dist/js/foundation.min.js" \
+    # _assets/js/*.js > "_assets/js/all.js"
+
+# echo -e "*** Minifi Javascript file ***"
+# curl -X POST -s --data-urlencode "${SRC_DIR}/_assets/js/all.js" https://javascript-minifier.com/raw > "${DEST_DIR}/js/all.js"
 
 # Copy special files (to validate some accounts) to build directory
 cp validation/* "$DEST_DIR"
@@ -144,7 +162,7 @@ do
 done
 
 # Compress files
-if [ $COMPRESS ]; then
+if [[ $COMPRESS ]]; then
   echo -e "\n*** Compress static files ***"
   tar -cjf "$COMPRESS"/site.tar.bz2 *
 fi
@@ -160,7 +178,7 @@ cd $old_dir
 
 
 # Serve files
-if [ $SERVE ]; then
+if [[ $SERVE ]]; then
   echo -e "\n\n*** Serve static files with Jekyll ***"
   exec jekyll serve --trace --skip-initial-build --drafts --unpublished --future --port 8080 --host 0.0.0.0 --destination "$DEST_DIR"
 fi
