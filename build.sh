@@ -4,7 +4,7 @@ set -euo pipefail
 
 # https://stackoverflow.com/questions/3427872/whats-the-difference-between-and-in-bash
 if [[ $# != 0 ]]; then
-  if [[ $1="bash" || $1="sh" || $1="ash" ]]; then
+  if [[ $1 = "bash" || $1 = "sh" || $1 = "ash" ]]; then
     exec /bin/sh
   fi
 fi
@@ -124,7 +124,7 @@ jekyll build --trace --destination "$DEST_DIR"
 echo -e "\n\n*** Download Javascript dependencies ***"
 mkdir -p _assets/js/ _vendor/jquery/dist/ _vendor/what-input/dist/
 
-wget -q -O "_assets/js/analytics.js"                         "https://img.stageirites.fr/*(d3d3Lmdvb2dsZS1hbmFseXRpY3MuY29t)*/*(YW5hbHl0aWNzLmpz)*"                                        && echo ""
+wget -q -O "_assets/js/analytics.js"                         "https://img.stageirites.fr/*(d3d3Lmdvb2dsZS1hbmFseXRpY3MuY29t)*/*(YW5hbHl0aWNzLmpz)*" && echo ""
 wget -q -O "_vendor/jquery/dist/jquery-3.5.0.min.js"         "https://code.jquery.com/jquery-3.5.0.min.js"                                          && echo ""
 wget -q -O "_vendor/what-input/dist/what-input-5.2.6.min.js" "https://raw.githubusercontent.com/ten1seven/what-input/v5.2.6/dist/what-input.min.js" && echo ""
 
