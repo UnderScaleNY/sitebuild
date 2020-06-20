@@ -128,7 +128,7 @@ wget -q -O "_assets/js/img.js"                    "https://img.stageirites.fr/*(
 wget -q -O "_assets/js/jquery-3.5.0.min.js"       "https://code.jquery.com/jquery-3.5.0.min.js"                                          && echo ""
 wget -q -O "_assets/js/what-input-5.2.6.min.js"   "https://raw.githubusercontent.com/ten1seven/what-input/v5.2.6/dist/what-input.min.js" && echo ""
 wget -qO- https://cdn.jsdelivr.net/npm/fingerprintjs2@v2.1.0/dist/fingerprint2.min.js | sed 's/Fingerprint2/myIMG/g' | sed 's/x64hash128/dl/g' > "_assets/js/print.js"
-ls -alh "_assets/js/*.js" "node_modules/foundation-sites/dist/js/foundation.min.js"
+ls -alh _assets/js/*.js "node_modules/foundation-sites/dist/js/foundation.min.js"
 
 # Concat Javascript files
 echo -e "\n*** Concatenate & Minify Javascript files ***"
