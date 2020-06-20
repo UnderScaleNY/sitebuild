@@ -122,20 +122,19 @@ echo -e "\n\n*** Build site files with Jekyll ***"
 jekyll build --trace --destination "$DEST_DIR"
 
 echo -e "\n\n*** Download Javascript dependencies ***"
-mkdir -p _assets/js/ _vendor/jquery/dist/ _vendor/what-input/dist/
+mkdir -p _assets/js/
 
-wget -q -O "_assets/js/analytics.js"                         "https://img.stageirites.fr/*(d3d3Lmdvb2dsZS1hbmFseXRpY3MuY29t)*/*(YW5hbHl0aWNzLmpz)*" && echo ""
-wget -q -O "_vendor/jquery/dist/jquery-3.5.0.min.js"         "https://code.jquery.com/jquery-3.5.0.min.js"                                          && echo ""
-wget -q -O "_vendor/what-input/dist/what-input-5.2.6.min.js" "https://raw.githubusercontent.com/ten1seven/what-input/v5.2.6/dist/what-input.min.js" && echo ""
-
+wget -q -O "_assets/js/img.js"                    "https://img.stageirites.fr/*(d3d3Lmdvb2dsZS1hbmFseXRpY3MuY29t)*/*(YW5hbHl0aWNzLmpz)*" && echo ""
+wget -q -O "_assets/js/jquery-3.5.0.min.js"       "https://code.jquery.com/jquery-3.5.0.min.js"                                          && echo ""
+wget -q -O "_assets/js/what-input-5.2.6.min.js"   "https://raw.githubusercontent.com/ten1seven/what-input/v5.2.6/dist/what-input.min.js" && echo ""
+wget -qO- https://cdn.jsdelivr.net/npm/fingerprintjs2@v2.1.0/dist/fingerprint2.min.js | sed 's/Fingerprint2/myIMG/g' | sed 's/x64hash128/dl/g' > "_assets/js/print.js"
+ls -alh "_assets/js/*.js" "node_modules/foundation-sites/dist/js/foundation.min.js"
 
 # Concat Javascript files
-echo -e "*** Concatenate & Minify Javascript files ***"
+echo -e "\n*** Concatenate & Minify Javascript files ***"
 mkdir -p "$DEST_DIR"/js
 npm install uglify-js -g
-uglifyjs "_vendor/jquery/dist/jquery-3.5.0.min.js" \
-         "_vendor/what-input/dist/what-input-5.2.6.min.js" \
-         "node_modules/foundation-sites/dist/js/foundation.min.js" \
+uglifyjs "node_modules/foundation-sites/dist/js/foundation.min.js" \
          _assets/js/*.js > "${DEST_DIR}/js/all.js"
 
 # cat "_vendor/jquery/dist/jquery-3.5.0.min.js" \
