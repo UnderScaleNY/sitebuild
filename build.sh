@@ -142,8 +142,9 @@ ls -alh _assets/js/*.js "node_modules/foundation-sites/dist/js/foundation.min.js
 # Concat Javascript files
 echo -e "\n*** Concatenate & Minify Javascript files ***"
 mkdir -p "$DEST_DIR"/js
-npm install uglify-js -g
-uglifyjs _assets/js/*.js "node_modules/foundation-sites/dist/js/foundation.min.js" > "${DEST_DIR}/js/all.js"
+# npm install uglify-js -g
+npm install terser -g
+terser --compress --mangle -- _assets/js/*.js "node_modules/foundation-sites/dist/js/foundation.min.js" > "${DEST_DIR}/js/all.js"
 ls -alh "${DEST_DIR}/js/all.js"
 
 # cat "_vendor/jquery/dist/jquery-3.5.0.min.js" \
